@@ -26,6 +26,7 @@ class City
         allRows = fullTable.split("</tr>")
 
         # Substring to find individual pieces needed for cost of living
+        resultArr << @city_name.capitalize
         resultArr << allRows[1].split("</td>")[1][5..] #overall score
         resultArr << allRows[2].split("</td>")[1][5..] #groceries
         resultArr << allRows[4].split("</td>")[1][5..] #housing
@@ -48,6 +49,7 @@ class City
         allRows = fullTable.split("</tr>")
 
         # Substring to find individual pieces needed for climate
+        resultArr << @city_name.capitalize
         resultArr << allRows[7].split("</td>")[1][20..] #comfort_index
         resultArr << allRows[1].split("</td>")[1][20..] #rainfall
         resultArr << allRows[2].split("</td>")[1][20..] #snowfall
@@ -70,6 +72,7 @@ class City
         allRows = fullTable.split("</tr>")
 
         # Substring to find individual pieces needed for economy
+        resultArr << @city_name.capitalize
         resultArr << allRows[1].split("</td>")[1][5..] #unemployment
         resultArr << allRows[2].split("</td>")[1][5..] #recent_job_growth
         resultArr << allRows[3].split("</td>")[1][5..] #future_job_growth
@@ -85,6 +88,8 @@ class City
         resultArr = []
 
         fullHTML = Nokogiri::HTML.parse(URI.open(url, {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read)
+
+        resultArr << @city_name.capitalize
 
         # Search for political climate text on page (the first bolded element)
         poli_climate_tag = (fullHTML.css("b").first.to_s)
@@ -109,6 +114,7 @@ class City
         allRows = fullTable.split("</tr>")        
         
         # Substring to find individual pieces needed for commute
+        resultArr << @city_name.capitalize
         resultArr << allRows[1].split("</td>")[1][5..] #commute_time
         resultArr << allRows[3].split("</td>")[1][5..] #auto%
         resultArr << allRows[4].split("</td>")[1][5..] #carpool%
@@ -128,6 +134,8 @@ class City
         # Both of the crime stats are in h5 tags on this site, so we get all of them and split them into an array.
         h5textArr = fullHTML.css("h5").to_s.split("</h5>")
 
+        resultArr << @city_name.capitalize
+        
         # Search for Violent Crime Score (US avg is 22.7)
         violent_crime_index = h5textArr[1].index("is")+3
         violent_crime_end_index = h5textArr[1].index("<small>")-2
@@ -141,7 +149,3 @@ class City
         return resultArr
     end
 end
-
-# Testing Area
-boston = City.new("Boston", "Massachusetts")
-puts boston.get_crime
