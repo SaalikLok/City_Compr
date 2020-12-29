@@ -77,7 +77,27 @@ class Compr
     end
 
     # Make city objects and get requested data
-    def get_data
-        
+    def get_data(category, cities)
+        cities_arr = []
+        data_arr = []
+
+        cities.each { |key, value| 
+            city = value[0].downcase
+            state = value[1].downcase
+            cities_arr << City.new(city, state)
+        }
+
+        case category
+        when "Cost of Living"
+            cities_arr.each { |city| 
+                current = city.get_cost_of_living
+                data_arr << current
+            }
+        end
+    end
+
+    # Build and print the table
+    def show_table
+        puts "Show Table"
     end
 end

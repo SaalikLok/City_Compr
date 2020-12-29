@@ -22,4 +22,20 @@ class City
         # Return an array, the row to be added
         return fullHTML.title
     end
+
+    def get_economy
+        return "Data"
+    end
+
+    def get_politics
+        return "Data"
+    end
+
+    def get_commute
+        return "Data"
+    end
+
+    def get_crime
+        return "Data"
+    end
 end
