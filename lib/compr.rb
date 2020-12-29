@@ -73,8 +73,7 @@ class Compr
             puts
         end
 
-        puts "Here are the cities we want to compare:"
-        city_hash.each {|key, value| puts value[0]}
+        puts "On it. Generating data..."
 
         return city_hash
     end
@@ -92,45 +91,46 @@ class Compr
 
         case category
         when "Cost of Living"
+            headings = ["City", "Overall Score", "Groceries", "Housing", "Median Home Cost", "Utilities", "Transport"]
             cities_arr.each { |city| 
                 data_arr << city.get_cost_of_living
             }
-            return data_arr
+            return [headings, data_arr]
         when "Climate"
+            headings = ["City", "Comfort Index", "Rainfall", "Snowfall", "Precipitation", "Sunny Days", "High Temp (July)", "Low Temp (Jan)"]
             cities_arr.each { |city| 
                 data_arr << city.get_climate
             }
-            return data_arr
+            return [headings, data_arr]
         when "Economy"
+            headings = ["City", "Unemployment", "Recent Job Growth", "Future Job Growth", "Income Tax", "Income Per Capita", "Sales Tax"]
             cities_arr.each { |city| 
                 data_arr << city.get_economy
             }
-            return data_arr
+            return [headings, data_arr]
         when "Politics"
+            headings = ["City", "Political Climate", "Last 5 Presidential Election Results"] 
             cities_arr.each { |city| 
                 data_arr << city.get_politics
             }
-            return data_arr
+            return [headings, data_arr]
         when "Commute"
             cities_arr.each { |city| 
                 data_arr << city.get_commute
             }
-            return data_arr
+            return [headings, data_arr]
         when "Crime"
             cities_arr.each { |city| 
                 data_arr << city.get_crime
             }
-            return data_arr
+            return [headings, data_arr]
         end
     end
 
     # Build and print the table
-    def show_table(data)
-        # Add Title 
-        # Add Headings
-        # Add Description beneath the table
-
-        table = Terminal::Table.new :rows => data
+    def show_table(data, title)
+        table = Terminal::Table.new :title => title, :headings => data[0], :rows => data[1]
+        puts `clear`
         puts table
     end
 end
