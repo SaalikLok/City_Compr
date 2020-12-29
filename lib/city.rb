@@ -23,6 +23,10 @@ class City
         return fullHTML.title
     end
 
+    def get_climate
+        return "Data"
+    end
+
     def get_economy
         return "Data"
     end

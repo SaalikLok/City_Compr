@@ -1,3 +1,6 @@
+require 'terminal-table'
+require './lib/city.rb'
+
 class Compr
     def welcome
         puts "Welcome to City Compr! We'll compare some awesome data of cities here."
@@ -93,11 +96,44 @@ class Compr
                 current = city.get_cost_of_living
                 data_arr << current
             }
+            return data_arr
+        when "Climate"
+            cities_arr.each { |city| 
+                current = city.get_climate
+                data_arr << current
+            }
+            return data_arr
+        when "Economy"
+            cities_arr.each { |city| 
+                current = city.get_economy
+                data_arr << current
+            }
+            return data_arr
+        when "Politics"
+            cities_arr.each { |city| 
+                current = city.get_politics
+                data_arr << current
+            }
+            return data_arr
+        when "Commute"
+            cities_arr.each { |city| 
+                current = city.get_commute
+                data_arr << current
+            }
+            return data_arr
+        when "Crime"
+            cities_arr.each { |city| 
+                current = city.get_crime
+                data_arr << current
+            }
+            return data_arr
         end
     end
 
     # Build and print the table
-    def show_table
-        puts "Show Table"
+    def show_table(rows)
+        puts rows
+        # table = Terminal::Table.new :rows => rows
+        # puts table
     end
 end
