@@ -1,6 +1,10 @@
 # Welcome to City Compr code!
 
-require './lib/city.rb'
+require './lib/compr.rb'
 
-boston = City.new("boston", "massachusetts")
-puts boston.getTitle
+app = Compr.new
+app.welcome
+category = app.get_category
+cities = app.get_city
+data = app.get_data(category, cities)
+app.show_table(data, category)
