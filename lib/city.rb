@@ -4,8 +4,8 @@ require 'openssl'
 
 class City
     def initialize(city_name, state_name)
-        @city_name = city_name.downcase
-        @state_name = state_name.downcase
+        @city_name = city_name.downcase.tr(" ", "_")
+        @state_name = state_name.downcase.tr(" ", "_")
     end
 
     def get_cost_of_living
@@ -26,7 +26,7 @@ class City
         allRows = fullTable.split("</tr>")
 
         # Substring to find individual pieces needed for cost of living
-        data_arr << @city_name.capitalize
+        data_arr << @city_name.tr("_", " ").capitalize
         data_arr << allRows[1].split("</td>")[1][5..] #overall score
         data_arr << allRows[2].split("</td>")[1][5..] #groceries
         data_arr << allRows[4].split("</td>")[1][5..] #housing
@@ -36,6 +36,10 @@ class City
 
         # Return an array, the row to be added
         return data_arr
+
+    rescue NoMethodError
+        puts "ERROR>>> Oops! Looks like at least one of the cities or states you entered weren't valid. Unfortunately, spelling counts :("
+        exit
     end
 
     def get_climate
@@ -59,6 +63,10 @@ class City
         data_arr << allRows[6].split("</td>")[1][20..] #jan_low
 
         return data_arr
+
+    rescue NoMethodError
+        puts "ERROR>>> Oops! Looks like at least one of the cities or states you entered weren't valid. Unfortunately, spelling counts :("
+        exit
     end
 
     def get_economy
@@ -81,6 +89,10 @@ class City
         data_arr << allRows[4].split("</td>")[1][5..] #sales_tax
 
         return data_arr
+
+    rescue NoMethodError
+        puts "ERROR>>> Oops! Looks like at least one of the cities or states you entered weren't valid. Unfortunately, spelling counts :("
+        exit
     end
 
     def get_politics
@@ -101,6 +113,10 @@ class City
         data_arr << voteword_tag[-9..]
 
         return data_arr
+
+    rescue NoMethodError
+        puts "ERROR>>> Oops! Looks like at least one of the cities or states you entered weren't valid. Unfortunately, spelling counts :("
+        exit
     end
 
     def get_commute
@@ -123,6 +139,10 @@ class City
         data_arr << allRows[7].split("</td>")[1][5..] #walk%
 
         return data_arr
+
+    rescue NoMethodError
+        puts "ERROR>>> Oops! Looks like at least one of the cities or states you entered weren't valid. Unfortunately, spelling counts :("
+        exit
     end
 
     def get_crime
@@ -147,5 +167,9 @@ class City
         data_arr << h5textArr[2][property_crime_index..property_crime_end_index]
 
         return data_arr
+
+    rescue NoMethodError
+        puts "ERROR>>> Oops! Looks like at least one of the cities or states you entered weren't valid. Unfortunately, spelling counts :("
+        exit
     end
 end

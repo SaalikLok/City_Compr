@@ -3,15 +3,28 @@ require './lib/city.rb'
 
 class Compr
     def welcome
-        puts "Welcome to City Compr! We'll compare some awesome data of cities here."
-        #  Add City ASCII art
-        # Can try: https://github.com/pazdera/catpix to put actual images in the terminal
+        puts %{
+                         ^
+            _______     ^^^
+           |xxxxxxx|  _^^^^^_
+           |xxxxxxx| | [][]  |
+        ______xxxxx| |[][][] |
+       |++++++|xxxx| | [][][]|      CITY COMPR
+       |++++++|xxxx| |[][][] |      city data comparison
+       |++++++|_________ [][]|
+       |++++++|=|=|=|=|=| [] |      by @saaliklok
+       |++++++|=|=|=|=|=|[][]|
+___________|++HH++|  _HHHH__|   _________   _________  _________
+     _______________   ______________      ______________
+__________________  ___________    __________________    ____________
+        }
     end
 
     # Main Menu, ask which category to look at and how many cities to compare
     def get_category
         puts
-        puts "What category would you like to look at? (Type the number of the option you'd like.)"
+        puts
+        puts "What category are you investigating today? (Type the number of the option you'd like.)"
         puts "1. Cost of Living"
         puts "2. Climate"
         puts "3. Economy"
@@ -115,11 +128,13 @@ class Compr
             }
             return [headings, data_arr]
         when "Commute"
+            headings = ["City", "Commute Time", "Auto", "Carpool", "Mass Transit", "Bike", "Walk"]
             cities_arr.each { |city| 
                 data_arr << city.get_commute
             }
             return [headings, data_arr]
         when "Crime"
+            headings = ["City", "Violent Crime", "Property Crime"]
             cities_arr.each { |city| 
                 data_arr << city.get_crime
             }
