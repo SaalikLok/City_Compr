@@ -53,7 +53,7 @@ class City
         allRows = fullTable.split("</tr>")
 
         # Substring to find individual pieces needed for climate
-        data_arr << @city_name.capitalize
+        data_arr << @city_name.tr("_", " ").capitalize
         data_arr << allRows[7].split("</td>")[1][20..] #comfort_index
         data_arr << allRows[1].split("</td>")[1][20..] #rainfall
         data_arr << allRows[2].split("</td>")[1][20..] #snowfall
@@ -80,7 +80,7 @@ class City
         allRows = fullTable.split("</tr>")
 
         # Substring to find individual pieces needed for economy
-        data_arr << @city_name.capitalize
+        data_arr << @city_name.tr("_", " ").capitalize
         data_arr << allRows[1].split("</td>")[1][5..] #unemployment
         data_arr << allRows[2].split("</td>")[1][5..] #recent_job_growth
         data_arr << allRows[3].split("</td>")[1][5..] #future_job_growth
@@ -101,7 +101,7 @@ class City
 
         fullHTML = Nokogiri::HTML.parse(URI.open(url, {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read)
 
-        data_arr << @city_name.capitalize
+        data_arr << @city_name.tr("_", " ").capitalize
 
         # Search for political climate text on page (the first bolded element)
         poli_climate_tag = (fullHTML.css("b").first.to_s)
@@ -110,7 +110,7 @@ class City
         
         # Search for VoteWord on page
         voteword_tag = fullHTML.css("h5.font-weight-bold").to_s.split("</h5>")[1]
-        data_arr << voteword_tag[-9..]
+        data_arr << voteword_tag[-9..].upcase
 
         return data_arr
 
@@ -130,7 +130,7 @@ class City
         allRows = fullTable.split("</tr>")        
         
         # Substring to find individual pieces needed for commute
-        data_arr << @city_name.capitalize
+        data_arr << @city_name.tr("_", " ").capitalize
         data_arr << allRows[1].split("</td>")[1][5..] #commute_time
         data_arr << allRows[3].split("</td>")[1][5..] #auto%
         data_arr << allRows[4].split("</td>")[1][5..] #carpool%
@@ -154,7 +154,7 @@ class City
         # Both of the crime stats are in h5 tags on this site, so we get all of them and split them into an array.
         h5textArr = fullHTML.css("h5").to_s.split("</h5>")
 
-        data_arr << @city_name.capitalize
+        data_arr << @city_name.tr("_", " ").capitalize
         
         # Search for Violent Crime Score (US avg is 22.7)
         violent_crime_index = h5textArr[1].index("is")+3
