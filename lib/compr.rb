@@ -52,23 +52,24 @@ __________________  ___________    __________________    ____________
                 else
                     puts "Hmm, didn't quite get that. Did you use a number between 1 and 6?"
                     puts
-                    main_menu
+                    exit
             end
             puts "Got it. #{category} it is."
             puts
             return category
-        else
-            puts "Hmm, didn't quite get that. Did you use a number between 1 and 6?"
-            puts
-            main_menu
         end
     end
 
     # Ask how many cities to compare, return a hash with cities and states to use in URL lookup
     def get_city
         puts "How many cities would you like to compare?"
-        num_cities = gets.chomp.to_i
+        num_cities = gets.to_i
         city_hash = {}
+
+        if num_cities <= 0 || num_cities >= 11
+            puts "Hmm, that doesn't look like a valid number. Try something between 1 and 10"
+            exit
+        end
 
         num_cities.times do |i|
             city_state_arr = []
@@ -147,5 +148,9 @@ __________________  ___________    __________________    ____________
         table = Terminal::Table.new :title => title, :headings => data[0], :rows => data[1]
         puts `clear`
         puts table
+
+    rescue NoMethodError
+        puts "ERROR>>> Oops! Looks like at least one of the cities or states you entered weren't valid. Unfortunately, spelling counts :("
+        exit
     end
 end
